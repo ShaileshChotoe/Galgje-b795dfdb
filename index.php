@@ -20,6 +20,7 @@ $woordString = '';
 $lives = 11;
 $message = '';
 $won = 'false';
+$lettersArray = ' ';
 
 $woordenArray = array('bitacademy', 'sciencepark', 'matrixvii', 'jarvis', 'bitcoins', 'pneumonoultramicroscopicsilicovolcanoconiosis', 'iphone');
 
@@ -30,7 +31,7 @@ if (isset($_POST['submit']))
 
   if ($woord == '')
   {
-    $woord = $woordenArray[0];
+    $woord = $woordenArray[rand(0,count($woordenArray))];
   }
 
   MaakWoordString($woord);
@@ -40,6 +41,7 @@ if (isset($_POST['submit']))
   setcookie('lives', $lives);
   setcookie('message', $message);
   setcookie('won', $won);
+  setcookie('letters', $lettersArray);
 
   header('Location: game.php');
 

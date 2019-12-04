@@ -3,10 +3,13 @@
 
 $letter;
 $isCorrect = false;
+$isletterChosen = false;
 
 if (isset($_POST['submit']) && $_COOKIE['lives'] != 0)
 {
   $letter = $_POST['submit'];
+  $_COOKIE['letters'] .= $letter;
+  setcookie('letters', $_COOKIE['letters']);
   for ($i=0; $i < strlen($_COOKIE['woord']); $i++)
   {
     if ($letter == $_COOKIE['woord'][$i])
@@ -17,14 +20,26 @@ if (isset($_POST['submit']) && $_COOKIE['lives'] != 0)
     }
   }
 
+  for ($i=0; $i < strlen($_COOKIE['letters']); $i++)
+  {
+    if ($letter == $_COOKIE['letters'][$i])
+    {
+      $isletterChosen = true;
+    }
+  }
+
+
   if ($_COOKIE['won'] != 'true')
   {
     if (!$isCorrect)
     {
-      if ($_COOKIE['lives'] > 0)
+      if (!$isletterChosen)
       {
-        $_COOKIE['lives'] = $_COOKIE['lives'] - 1;
-        setcookie('lives', $_COOKIE['lives']);
+        if ($_COOKIE['lives'] > 0)
+        {
+          $_COOKIE['lives'] = $_COOKIE['lives'] - 1;
+          setcookie('lives', $_COOKIE['lives']);
+        }
       }
 
 
